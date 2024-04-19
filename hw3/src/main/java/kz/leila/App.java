@@ -6,7 +6,8 @@ import java.util.Scanner;
 
 public class App {
     public static void main( String[] args ) {
-        guessNumberGame();
+        //guessNumberGame();
+        guessWordGame();
     }
 
     public static void guessNumberGame() {
@@ -48,6 +49,36 @@ public class App {
             guessNumberGame();
         } else {
             System.out.println("Спасибо за игру!");
+        }
+    }
+
+    public static void guessWordGame() {
+        Scanner scanner = new Scanner(System.in);
+        Random rm = new Random();
+        String[] words = {"apple", "orange", "lemon", "banana", "apricot", "avocado", "broccoli", "carrot",
+                "cherry", "garlic", "grape", "melon", "leak", "kiwi", "mango", "mushroom", "nut", "olive", "pea",
+                "peanut", "pear", "pepper", "pineapple", "pumpkin", "potato"};
+        String secretWord = words[rm.nextInt(words.length)];
+        int len = secretWord.length();
+
+        System.out.println("Загадано слово. Попробуйте угадать его.");
+
+        while (true) {
+            System.out.print("Введите ваше слово: ");
+            String word = scanner.nextLine().toLowerCase();
+
+            if (word.equals(secretWord)) {
+                System.out.println("Поздравляю! Вы угадали слово!");
+                break;
+            } else {
+                StringBuilder str = new StringBuilder("###############");
+                for (int i = 0; i < Math.min(len, word.length()); i++) {
+                    if (word.charAt(i) == secretWord.charAt(i)) {
+                        str.setCharAt(i, secretWord.charAt(i));
+                    }
+                }
+                System.out.println("Вы не угадали. Попробуйте еще. Подсказка: " + str);
+            }
         }
     }
 }
